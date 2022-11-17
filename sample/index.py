@@ -1,9 +1,9 @@
 import os
-from pprint import pprint
-from PIL import Image, ImageDraw, ImageFont
-import os
-import shutil
 import re
+import shutil
+from pprint import pprint
+
+from PIL import Image, ImageDraw, ImageFont
 
 chars = ['0', '1', '2', '3', '4', '5', '6',
          '7', '8', '9', '=', '+', '-', '×', '÷']
@@ -30,7 +30,7 @@ def make_image(chars: list, font_path, width=24, height=24, rotate=0):
         img = Image.new('RGB', (width, height), "black")
         draw = ImageDraw.Draw(img)
         # 加载一种字体,字体大小是图片宽度的90%
-        font = ImageFont.truetype(font_path, int(width * 0.9))
+        font = ImageFont.truetype(font_path, int(width))
         # 获取字体的宽高
         # 计算字体绘制的x,y坐标，主要是让文字画在图标中心
         bounding = draw.textbbox(xy=(0, 0), text=char, font=font)
@@ -60,7 +60,7 @@ def make_diff_images():
         # 把每种字体都取出来，每种字体都生成一批图片
         path_font_file = os.path.join(font_dir, font_name)
         # 倾斜角度从 -10 到 10 度，每个角度都生成一批图片
-        for rotate in range(-10, 10, 1):
+        for rotate in range(-3, 3, 1):
             # 每个字符都生成图片
             make_image(chars, path_font_file, rotate=rotate)
 
